@@ -5,8 +5,8 @@ import os
 from twilio.rest import Client
 
 mpu = mpu6050(0x68)
-accel_similar_max = 10
-gyro_similar_max = 10
+accel_similar_max = 6
+gyro_similar_max = 6
 
 gyro_tolerance = 0.25
 accel_tolerance = 0.25
@@ -49,7 +49,7 @@ while gyro_similar_for_count < gyro_similar_max and accel_similar_for_count < ac
 
     prev_gyro = gyro_data
 
-    time.sleep(1)
+    time.sleep(5)
 
 print("gyro_similar_for_count: " + str(gyro_similar_for_count) +
       " accel_similar_for_count: " + str(accel_similar_for_count))
