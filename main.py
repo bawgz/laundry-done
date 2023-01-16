@@ -1,6 +1,8 @@
 from mpu6050 import mpu6050
 import time
 import math
+import os
+from twilio.rest import Client
 
 mpu = mpu6050(0x68)
 accel_similar_max = 10
@@ -52,3 +54,18 @@ while gyro_similar_for_count < gyro_similar_max and accel_similar_for_count < ac
 print("gyro_similar_for_count: " + str(gyro_similar_for_count) +
       " accel_similar_for_count: " + str(accel_similar_for_count))
 print("DONE!!!!!!!!! @ " + str(time.time()))
+
+account_sid = os.environ['TWILIO_ACCOUNT_SID']
+auth_token = os.environ['TWILIO_AUTH_TOKEN']
+from_num = os.environ['TWILIO_FROM_NUM']
+to_num = os.environ['TWILIO_TO_NUM']
+client = Client(account_sid, auth_token)
+
+message = client.messages \
+    .create(
+        body='Your laundry is done!!!!!!!',
+        from_=from_num,  # ex: '+15017122661'
+        to=to_num  # ex: '+15558675310'
+    )
+
+print(message.sid)
