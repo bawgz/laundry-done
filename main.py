@@ -85,7 +85,7 @@ while True:
         gyro_diff_for_count = 0
         accel_similar_for_count = 0
         accel_diff_for_count = 0
-    elif gyro_diff_for_count >= gyro_diff_max or accel_diff_for_count >= accel_diff_max and not is_in_cycle:
+    elif not is_in_cycle and (gyro_diff_for_count >= gyro_diff_max or accel_diff_for_count >= accel_diff_max):
         is_in_cycle = True
         gyro_similar_for_count = 0
         gyro_diff_for_count = 0
