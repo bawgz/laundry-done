@@ -27,8 +27,6 @@ gyro_similar_for_count = 0
 gyro_diff_for_count = 0
 
 while True:
-    print("Temp : "+str(mpu.get_temp()))
-    print()
 
     accel_data = mpu.get_accel_data()
 
@@ -59,7 +57,6 @@ while True:
     print("Gyro Y Diff: "+str(abs(gyro_data['y'] - prev_gyro['y'])))
     print("Gyro Z Diff: "+str(abs(gyro_data['z'] - prev_gyro['z'])))
     print()
-    print("-------------------------------")
 
     prev_gyro = gyro_data
 
@@ -84,8 +81,6 @@ while True:
         print(message.sid)
 
         is_in_cycle = False
-        print("Is in cycle: " + str(is_in_cycle))
-
         gyro_similar_for_count = 0
         gyro_diff_for_count = 0
         accel_similar_for_count = 0
@@ -97,5 +92,7 @@ while True:
         accel_similar_for_count = 0
         accel_diff_for_count = 0
 
+    print("Is in cycle: " + str(is_in_cycle))
+    print("-------------------------------")
     time.sleep(
         in_cycle_sleep_seconds if is_in_cycle else out_of_cycle_sleep_seconds)
