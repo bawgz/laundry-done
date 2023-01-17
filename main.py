@@ -16,7 +16,7 @@ gyro_similar_max = 12
 gyro_diff_max = 3
 accel_diff_max = 3
 
-gyro_tolerance = 0.25
+gyro_tolerance = 0.15
 accel_tolerance = 0.15
 
 prev_accel = mpu.get_accel_data()
