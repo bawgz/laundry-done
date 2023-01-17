@@ -10,8 +10,8 @@ out_of_cycle_sleep_seconds = 30
 is_in_cycle = False
 
 mpu = mpu6050(0x68)
-accel_similar_max = 6
-gyro_similar_max = 6
+accel_similar_max = 12
+gyro_similar_max = 12
 
 gyro_diff_max = 3
 accel_diff_max = 3
