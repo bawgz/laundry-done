@@ -60,7 +60,7 @@ while True:
 
     prev_gyro = gyro_data
 
-    if gyro_similar_for_count >= gyro_similar_max or accel_similar_for_count >= accel_similar_max and is_in_cycle:
+    if is_in_cycle and (gyro_similar_for_count >= gyro_similar_max or accel_similar_for_count >= accel_similar_max):
         print("gyro_similar_for_count: " + str(gyro_similar_for_count) +
               " accel_similar_for_count: " + str(accel_similar_for_count))
         print("DONE!!!!!!!!! @ " + str(time.time()))
