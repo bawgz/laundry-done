@@ -10,6 +10,15 @@ services:
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: test_db
+      POSTGRES_DB: laundry_monitor
     ports:
       - "5432:5432"
+
+  flyway:
+    container_name: flyway
+    image: flyway/flyway
+    command: -url=jdbc:postgresql://db/laundry_monitor -schemas=public -user=root -password=password -connectRetries=60 migrate
+    volumes:
+      - ./sql:/flyway/sql
+    depends_on:
+      - db
