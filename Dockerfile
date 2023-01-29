@@ -1,8 +1,11 @@
-FROM python:3.8-slim-buster
+FROM balenalib/raspberry-pi-debian-python:latest
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install --no-install-recommends --assume-yes python3-smbus
+RUN install_packages apt-utils
+RUN install_packages i2c-tools
+RUN install_packages python3-smbus
+RUN install_packages python3-can
 
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt

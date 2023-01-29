@@ -1,2 +1,2 @@
-mpu6050_raspberrypi==1.2
+mpu6050-raspberrypi==1.2
 twilio==7.16.1
