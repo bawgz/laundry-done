@@ -1,11 +1,8 @@
-FROM balenalib/raspberry-pi-debian-python:latest
+FROM python:3.9-bullseye
 
 WORKDIR /app
 
-RUN install_packages apt-utils
-RUN install_packages i2c-tools
-RUN install_packages python3-smbus
-RUN install_packages python3-can
+RUN apt update && apt install --no-install-recommends --assume-yes python3-smbus
 
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
