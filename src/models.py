@@ -22,7 +22,7 @@ class RunLog(Base):
     sensor_address: Mapped[int]
 
     sensor_readings: Mapped[list["SensorReading"]] = relationship(
-        back_populates="user", cascade="all, delete-orphan"
+        back_populates="run_log", cascade="all, delete-orphan"
     )
 
     def __repr__(self) -> str:
@@ -39,6 +39,8 @@ class SensorReading(Base):
     z: Mapped[float]
     sensor_type: Mapped[str]
     timestamp: Mapped[datetime.datetime]
+
+    run_log: Mapped["RunLog"] = relationship(back_populates="sensor_readings")
 
     def __repr__(self) -> str:
         return f"SensorReading(id={self.id!r}, run_log_id={self.run_log_id!r}, x={self.x!r}, y={self.y!r}, z={self.z!r}, sensore_type={self.sensor_type}, timestamp={self.timestamp})"
