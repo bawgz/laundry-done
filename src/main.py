@@ -39,7 +39,7 @@ with Session(engine) as session:
 
     run_log = RunLog(
         id=run_log_id,
-        start_time=datetime.datetime.now,
+        start_time=datetime.datetime.now(),
         machine_type="washer",
         sensor_address=68
     )
