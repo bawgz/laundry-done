@@ -13,11 +13,11 @@ from models import SensorReading
 is_in_cycle = False
 
 mpu = mpu6050(0x68)
-accel_similar_max = 12
-gyro_similar_max = 12
+accel_similar_max = 30
+gyro_similar_max = 30
 
-gyro_diff_max = 3
-accel_diff_max = 3
+gyro_diff_max = 10
+accel_diff_max = 10
 
 gyro_tolerance = 0.25
 accel_tolerance = 0.25
