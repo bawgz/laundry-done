@@ -10,9 +10,6 @@ from sqlalchemy.orm import Session
 from models import RunLog
 from models import SensorReading
 
-in_cycle_sleep_seconds = 5
-out_of_cycle_sleep_seconds = 30
-
 is_in_cycle = False
 
 mpu = mpu6050(0x68)
@@ -22,8 +19,8 @@ gyro_similar_max = 12
 gyro_diff_max = 3
 accel_diff_max = 3
 
-gyro_tolerance = 0.20
-accel_tolerance = 0.20
+gyro_tolerance = 0.25
+accel_tolerance = 0.25
 
 prev_accel = mpu.get_accel_data()
 accel_similar_for_count = 0
@@ -51,6 +48,17 @@ with Session(engine) as session:
     while True:
 
         accel_data = mpu.get_accel_data()
+        accel_sensor_reading = SensorReading(
+            id=uuid.uuid4(),
+            run_log_id=run_log_id,
+            x=accel_data['x'],
+            y=accel_data['y'],
+            z=accel_data['z'],
+            sensor_type='accel',
+            timestamp=datetime.datetime.now()
+        )
+
+        session.add(accel_sensor_reading)
 
         if math.isclose(accel_data['x'], prev_accel['x'], abs_tol=accel_tolerance) and math.isclose(accel_data['y'], prev_accel['y'], abs_tol=accel_tolerance) and math.isclose(accel_data['z'], prev_accel['z'], abs_tol=accel_tolerance):
             accel_similar_for_count += 1
@@ -67,6 +75,18 @@ with Session(engine) as session:
         prev_accel = accel_data
 
         gyro_data = mpu.get_gyro_data()
+        gyro_sensor_reading = SensorReading(
+            id=uuid.uuid4(),
+            run_log_id=run_log_id,
+            x=gyro_data['x'],
+            y=gyro_data['y'],
+            z=gyro_data['z'],
+            sensor_type='gyro',
+            timestamp=datetime.datetime.now()
+        )
+
+        session.add(gyro_sensor_reading)
+        session.commit()
 
         if math.isclose(gyro_data['x'], prev_gyro['x'], abs_tol=gyro_tolerance) and math.isclose(gyro_data['y'], prev_gyro['y'], abs_tol=gyro_tolerance) and math.isclose(gyro_data['z'], prev_gyro['z'], abs_tol=gyro_tolerance):
             gyro_similar_for_count += 1
@@ -116,5 +136,4 @@ with Session(engine) as session:
 
         print("Is in cycle: " + str(is_in_cycle))
         print("-------------------------------")
-        time.sleep(
-            in_cycle_sleep_seconds if is_in_cycle else out_of_cycle_sleep_seconds)
+        time.sleep(1)
